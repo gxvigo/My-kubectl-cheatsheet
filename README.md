@@ -39,7 +39,7 @@ echo NODE_PORT=$NODE_PORT
 ```  
 
 
-- To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version:
+- To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version. This will not only set the new image, but it triggers the updates of the pods.
 
 ```
 kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
