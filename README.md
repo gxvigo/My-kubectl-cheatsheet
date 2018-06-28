@@ -46,3 +46,31 @@ kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/
 ```  
 
 
+- How to build *specific* kubectl commands: [TO-DO]
+
+All Kubernetes resource state is accessible through e.g. kubectl get (in my experience more useful for this purpose than kubectl describe) commands. Then, all that’s left is to find the needle in what can be a haystack of JSON.
+
+The trick is to:
+
+```
+kubectl get [resource]/[resource-name] --output=JSON
+```  
+And then eyeball the results to start building a query string:
+
+```  
+kubectl get [resource]/[resource-name] --output=jsonpath=".items[*]"
+```
+
+and iteratively refine the result set down until you have the item(s) that you seek. Here’s an example that should work with any cluster:
+
+```
+kubectl get nodes --output=json
+kubectl get nodes --output=jsonpath="{.items[*]}
+kubectl get nodes --output=jsonpath="{.items[0]}
+kubectl get nodes --output=jsonpath="{.items[0].metadata.name}
+``` 
+Lastly, there’s a decent argument (and a tenet in *nix) for learning one JSON parsing tool and applying that tool to all JSON parsing needs. In this case, is there any reasonable competitor to jq? I suspect not.
+
+Plus jq has an excellent playground (jqplay.org).
+
+
