@@ -44,7 +44,12 @@ echo NODE_PORT=$NODE_PORT
 ```
 kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
 ```  
+  
+- Cleanup inactive pods
 
+```
+txt="0/";ns="ms-demo";type="pods"; kubectl -n $ns get $type | grep "$txt" | awk '{ print $1 }' | xargs kubectl -n $ns delete $type
+```
 
 - How to build *specific* kubectl commands: [TO-DO]
 
