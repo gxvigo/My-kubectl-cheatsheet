@@ -51,6 +51,17 @@ kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/
 txt="0/";ns="ms-demo";type="pods"; kubectl -n $ns get $type | grep "$txt" | awk '{ print $1 }' | xargs kubectl -n $ns delete $type
 ```
 
+- Get a shell into a running container  (check that the pod exist and it's running):  
+
+```
+kubectl get pod vf-meetingapi-5b7595c5db-7mvmx -n ms-demo
+```  
+
+```
+kubectl -n ms-demo exec -it vf-meetingapi-5b7595c5db-7mvmx -- /bin/sh
+```
+
+
 - How to build *specific* kubectl commands: [TO-DO]
 
 All Kubernetes resource state is accessible through e.g. kubectl get (in my experience more useful for this purpose than kubectl describe) commands. Then, all that’s left is to find the needle in what can be a haystack of JSON.
